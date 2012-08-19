@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0+" codebase="http://www.torpidity.org/tank/" href="tank.jnlp">
+
+	<information>
+		<title>Torpidity Tank Game</title>
+		<vendor>Kevin Mershon</vendor>
+		<description>Java Multiplayer goodness</description>
+		<homepage href="http://www.torpidity.org"/>
+	</information>
+
+	<security>
+		<all-permissions/>
+	</security>
+
+	<resources>
+		<j2se href="http://java.sun.com/products/autodl/j2se" version="1.5+"/>
+		<jar href="tankgame.jar" main="true"/>
+		<jar href="lib/mysql.jar"/>
+		<jar href="lib/jl1.0.jar"/>
+	</resources>
+
+	<resources os="Windows" arch="x86">
+		<nativelib href="swt-native-win32-win32.jar" />
+		<jar href="swt-win32-win32.jar" />
+	</resources>
+
+	<resources os="Linux" arch="x86">
+		<nativelib href="swt-native-gtk-linux-x86.jar" />
+		<jar href="swt-gtk-linux-x86.jar" />
+	</resources>
+
+	<application-desc main-class="org.torpidity.tank.base.TankGame"/>
+</jnlp>

@@ -1,0 +1,2 @@
+Main-Class: org.torpidity.tank.base.TankGame
+Class-path: . lib/mysql.jar lib/aspectj.jar lib/jl1.0.jar lib/swt.jar

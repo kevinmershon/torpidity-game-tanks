@@ -1,0 +1,77 @@
+Codes
+----------------------------------
+CON = is Connecting
+DIS = is Disconnecting
+EXTRA = non-movement data follows (weapon selection, etc.)
+----------------------------------
+CON DIS EXTRA
+1   1   1
+C - D - E
+----------------------------------
+
+
+
+Client ---> Server (Connection) (Int - 32 Bits)
+-----------------------------------------------
+CODE  UID        SPARE
+3     8          21
+-----------------------------------------------
+CD0 - UUUUUUUU - 000000000000000000000
+-----------------------------------------------
+
+Client ---> Server (Gameplay) (Int - 32 Bits)
+-----------------------------------------------------
+MOV = moving (3 bits - forward, backward, booster)
+TUR = turning (2 bits - left, right)
+WEA = weapon selection (5 bits - 32 possible weapons)
+FIR = firing weapon
+SPA = spawn if dead
+-----------------------------------------------------
+CODE  UID        MOV   TUR  WEA     FIR SPA SPARE
+3     8          3     2    5       1   1   9
+-----------------------------------------------------
+000 - UUUUUUUU - MMM - TT - WWWWW - F - S - 000000000
+-----------------------------------------------------
+
+
+
+Server ---> Clients (Connection) (Long - 64 Bits)
+-------------------------------------------------------------------------------
+CODE  UID        X-Position         Y-Position         Angle       SPARE
+3     8          16                 16                 9           12
+-------------------------------------------------------------------------------
+Joined Game
+100 - UUUUUUUU - XXXXXXXXXXXXXXXX - YYYYYYYYYYYYYYYY - AAAAAAAAA - 000000000000
+
+Left Game
+010 - UUUUUUUU - 0000000000000000 - 0000000000000000 - 000000000 - 000000000000
+-------------------------------------------------------------------------------
+
+Server ---> Clients (Gameplay - Movement) (Long - 64 Bits)
+-------------------------------------------------------------------------------------------
+MOV = moving (3 bits - forward, backward, booster)
+TUR = turning (2 bits - left, right)
+FIR = firing weapon
+SPA = spawn if dead
+-------------------------------------------------------------------------------------------
+CODE  UID        X-Position         Y-Position         Angle       MOV   TUR  FIR SPA SPARE
+3     8          16                 16                 9           3     2    1   1   5
+-------------------------------------------------------------------------------------------
+00E - UUUUUUUU - XXXXXXXXXXXXXXXX - YYYYYYYYYYYYYYYY - AAAAAAAAA - MMM - TT - F - S - 00000
+-- ----------------------------------------------------------------------------------------
+
+  ^ if this E is a 1, follow with:
+
+Server ---> Clients (Gameplay - Extra) (Short - 16 bits)
+--------------------------------------------------------
+WEA = weapon selection (5 bits - 32 possible weapons)
+--------------------------------------------------------
+HP            WEAPON
+11            5
+--------------------------------------------------------
+HHHHHHHHHHH - WWWWW
+--------------------------------------------------------
+
+
+001 - 00000001 - 0000001100100000 - 0000000111110100 - 001011010 - 000 - 00 - 0 - 0 - 00000
+
